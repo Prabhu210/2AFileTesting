@@ -17,7 +17,7 @@ public class Exceldatasupplier {
     
     @DataProvider(name = "logindata")
     public Object[][] getdata() throws IOException, ParseException {
-        File excelfile = new File("C:\\Users\\Acviss\\git\\repository8\\2AFMC\\Excel\\25-04-2024.xlsx");
+        File excelfile = new File("C:\\Users\\Acviss\\git\\repository8\\2AFMC\\Excel\\26-04-2024.xlsx");
         FileInputStream fis = new FileInputStream(excelfile);
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheet("Sheet1"); // Assuming the sheet name is "Sheet1"
@@ -32,6 +32,9 @@ public class Exceldatasupplier {
             data[i - 1][3] = df.formatCellValue(sheet.getRow(i).getCell(7)); // Batch
             data[i - 1][4] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(8))); // Mfd date
             data[i - 1][5] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(9))); // Exp date
+            
+            
+            
         }
 
         workbook.close();
