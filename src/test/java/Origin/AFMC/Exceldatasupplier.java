@@ -22,7 +22,7 @@ public class Exceldatasupplier {
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheet("Sheet1"); // Assuming the sheet name is "Sheet1"
         int noOfRows = sheet.getPhysicalNumberOfRows();
-        Object[][] data = new Object[noOfRows - 1][6]; // Array to store both code and product
+        Object[][] data = new Object[noOfRows - 1][7]; // Array to store both code and product
 
         for (int i = 1; i < noOfRows; i++) { // Starting from 1 to skip header row
             DataFormatter df = new DataFormatter();
@@ -31,7 +31,8 @@ public class Exceldatasupplier {
             data[i - 1][2] = df.formatCellValue(sheet.getRow(i).getCell(4)); // Pack
             data[i - 1][3] = df.formatCellValue(sheet.getRow(i).getCell(7)); // Batch
             data[i - 1][4] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(8))); // Mfd date
-            data[i - 1][5] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(9))); // Exp date
+            data[i - 1][5] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(9)));
+            data[i - 1][6] = df.formatCellValue(sheet.getRow(i).getCell(10));// Exp date
            
             
             

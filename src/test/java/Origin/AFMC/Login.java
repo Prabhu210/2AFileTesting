@@ -109,7 +109,7 @@ import java.nio.file.Paths;
 //    } 
 public class Login extends Base {
 @Test(dataProvider = "logindata", dataProviderClass = Exceldatasupplier.class)
-public void launch(String code, String product, String Pack, String BatchNo, String MfgDate, String ExpDate) throws IOException {
+public void launch(String code, String product, String Pack, String BatchNo, String MfgDate, String ExpDate,String mfgLocation) throws IOException {
     browserconfig();
     Base.init();
     String s1 = code;
@@ -171,10 +171,30 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
     System.out.println("Expected Batch No: " + BatchNo);
     Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
     
+    WebElement btchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
+    String atualBatch = btchElement.getText();
+    System.out.println("Actual Batch No: " + atualBatch);
+    System.out.println("Expected Batch No: " + BatchNo);
+    Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
+    
+    String expectedManufacturingLocation = ""; // Initialize a variable to store the expected manufacturing location
+
+    // Determine the expected manufacturing location based on the batch code abbreviation
+    if (BatchNo.contains("VC")) {
+        expectedManufacturingLocation = "Vantech Chemicals Limited";
+    } else if (BatchNo.contains("PS")) {
+        expectedManufacturingLocation = "Prasad Seeds Pvt Ltd";
+    } else if (BatchNo.contains("IB")) {
+        expectedManufacturingLocation = "Saraswati Agro Chemicals India Pvt Ltd";
+    } else if (BatchNo.contains("BT")) {
+        expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
+    }
+
+    // Assertion for manufacturing location
+    Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
+    Assert.assertTrue(mfgLocation.equals(expectedManufacturingLocation), "Manufacturing location mismatch");
     
 
-    
-    
     WebElement mfgDateElement = driver.findElement(By.xpath("//tbody/tr[4]/td[2]"));
     String actualMfgDate = mfgDateElement.getText();
     System.out.println("Actual Manufacturing Date: " + actualMfgDate);
