@@ -160,6 +160,9 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
     Assert.assertTrue(actualPackUpperCase.contains(expectedPackUpperCase) ||
                       actualPackLowerCase.contains(expectedPackLowerCase),
                       "Pack mismatch");
+    
+    
+    
 
     
     WebElement batchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
@@ -167,6 +170,10 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
     System.out.println("Actual Batch No: " + actualBatch);
     System.out.println("Expected Batch No: " + BatchNo);
     Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
+    
+    
+
+    
     
     WebElement mfgDateElement = driver.findElement(By.xpath("//tbody/tr[4]/td[2]"));
     String actualMfgDate = mfgDateElement.getText();

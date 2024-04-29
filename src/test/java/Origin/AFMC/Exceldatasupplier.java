@@ -32,6 +32,7 @@ public class Exceldatasupplier {
             data[i - 1][3] = df.formatCellValue(sheet.getRow(i).getCell(7)); // Batch
             data[i - 1][4] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(8))); // Mfd date
             data[i - 1][5] = formatDate(df.formatCellValue(sheet.getRow(i).getCell(9))); // Exp date
+           
             
             
             
@@ -58,5 +59,7 @@ public class Exceldatasupplier {
         // Format the parsed date to the desired format
         return outputFormat.format(date);
     }
+    
+    
 
 }
