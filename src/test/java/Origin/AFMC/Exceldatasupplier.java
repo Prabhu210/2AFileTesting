@@ -17,7 +17,7 @@ public class Exceldatasupplier {
     
     @DataProvider(name = "logindata")
     public Object[][] getdata() throws IOException, ParseException {
-        File excelfile = new File("C:\\Users\\Acviss\\git\\repository8\\2AFMC\\Excel\\29-04-2024.xlsx");
+        File excelfile = new File("C:\\Users\\Acviss\\git\\repository8\\2AFMC\\Excel\\30-04-2024.xlsx");
         FileInputStream fis = new FileInputStream(excelfile);
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         XSSFSheet sheet = workbook.getSheet("Sheet1"); // Assuming the sheet name is "Sheet1"

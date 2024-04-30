@@ -6,7 +6,7 @@
       <class name="Origin.AFMC.Login">
         <methods>
           <include name="captureScreenshot"/>
-          <include name="launch"/>
+          <include name="launch" invocation-numbers="0 1"/>
         </methods>
       </class> <!-- Origin.AFMC.Login -->
     </classes>

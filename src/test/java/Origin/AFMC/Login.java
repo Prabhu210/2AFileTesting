@@ -189,6 +189,9 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
     } else if (BatchNo.contains("BT")) {
         expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
     }
+    
+    System.out.println("Expected Manufacturing Location: " +expectedManufacturingLocation);
+    System.out.println("actual Manufacturing Location: "+ mfgLocation);
 
     // Assertion for manufacturing location
     Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
