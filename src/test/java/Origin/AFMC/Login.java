@@ -180,6 +180,7 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
     String expectedManufacturingLocation = ""; // Initialize a variable to store the expected manufacturing location
 
     // Determine the expected manufacturing location based on the batch code abbreviation
+ // Determine the expected manufacturing location based on the batch code abbreviation or if it's a 6-digit number
     if (BatchNo.contains("VC")) {
         expectedManufacturingLocation = "Vantech Chemicals Limited";
     } else if (BatchNo.contains("PS")) {
@@ -188,8 +189,11 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
         expectedManufacturingLocation = "Saraswati Agro Chemicals India Pvt Ltd";
     } else if (BatchNo.contains("BT")) {
         expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
+    } else if (BatchNo.matches("\\d{6}")) {
+        expectedManufacturingLocation = "FMC India Pvt Ltd Savli"; // If it's a 6-digit number
     }
-    
+
+    // Assert for manufacturing location
     System.out.println("Expected Manufacturing Location: " +expectedManufacturingLocation);
     System.out.println("actual Manufacturing Location: "+ mfgLocation);
 
