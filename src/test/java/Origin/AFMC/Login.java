@@ -108,133 +108,133 @@ import java.nio.file.Paths;
 //    		
 //    } 
 public class Login extends Base {
-@Test(dataProvider = "logindata", dataProviderClass = Exceldatasupplier.class)
-public void launch(String code, String product, String Pack, String BatchNo, String MfgDate, String ExpDate,String mfgLocation) throws IOException {
-    browserconfig();
-    Base.init();
-    String s1 = code;
-    
-    String u = prop.getProperty("url");
-    
-    launchbrowser(u + s1);
-    maxiwindow();
-    
-    
-    WebElement  a = driver.findElement(By.xpath("//h1[@class='prod-heading']"));
-    String text = a.getText();
-    System.out.println(text);
-    String a2 ="UID : "+s1;
-    System.out.println(a2);
-   Assert.assertTrue(a2.contains(text),"code match");
-    
-    // Now the driver object should be initialized and usable
-    WebElement productElement = driver.findElement(By.xpath("//tbody/tr[1]/td[2]")); 
-    String actualProduct = productElement.getText();
-    System.out.println("Actual Product: " + actualProduct);
-    System.out.println("Expected Product: " + product);
+	@Test(dataProvider = "logindata", dataProviderClass = Exceldatasupplier.class)
+	public void launch(String code, String product, String Pack, String BatchNo, String MfgDate, String ExpDate,
+			String mfgLocation) throws IOException {
+		browserconfig();
+		Base.init();
+		String s1 = code;
 
-    // Convert both actual and expected product strings to uppercase and lowercase
-    String actualProductUpperCase = actualProduct.toUpperCase();
-    String actualProductLowerCase = actualProduct.toLowerCase();
-    String expectedProductUpperCase = product.toUpperCase();
-    String expectedProductLowerCase = product.toLowerCase();
+		String u = prop.getProperty("url");
 
-    // Assert that the actual product contains the expected product, ignoring case
-    Assert.assertTrue(actualProductUpperCase.contains(expectedProductUpperCase) ||
-                      actualProductLowerCase.contains(expectedProductLowerCase),
-                      "Product mismatch");
+		launchbrowser(u + s1);
+		maxiwindow();
 
-    
-    WebElement packElement = driver.findElement(By.xpath("//tbody/tr[2]/td[2]"));
-    String actualPack = packElement.getText();
-    System.out.println("Actual Pack: " + actualPack);
-    System.out.println("Expected Pack: " + Pack);
+		WebElement a = driver.findElement(By.xpath("//h1[@class='prod-heading']"));
+		String text = a.getText();
+		System.out.println(text);
+		String a2 = "UID : " + s1;
+		System.out.println(a2);
+		Assert.assertTrue(a2.contains(text), "code match");
 
-    // Convert both actual and expected pack strings to uppercase and lowercase
-    String actualPackUpperCase = actualPack.toUpperCase();
-    String actualPackLowerCase = actualPack.toLowerCase();
-    String expectedPackUpperCase = Pack.toUpperCase();
-    String expectedPackLowerCase = Pack.toLowerCase();
+		// Now the driver object should be initialized and usable
+		WebElement productElement = driver.findElement(By.xpath("//tbody/tr[1]/td[2]"));
+		String actualProduct = productElement.getText();
+		System.out.println("Actual Product: " + actualProduct);
+		System.out.println("Expected Product: " + product);
 
-    // Assert that the actual pack contains the expected pack, ignoring case
-    Assert.assertTrue(actualPackUpperCase.contains(expectedPackUpperCase) ||
-                      actualPackLowerCase.contains(expectedPackLowerCase),
-                      "Pack mismatch");
-    
-    
-    
+		// Convert both actual and expected product strings to uppercase and lowercase
+		String actualProductUpperCase = actualProduct.toUpperCase();
+		String actualProductLowerCase = actualProduct.toLowerCase();
+		String expectedProductUpperCase = product.toUpperCase();
+		String expectedProductLowerCase = product.toLowerCase();
 
-    
-    WebElement batchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
-    String actualBatch = batchElement.getText();
-    System.out.println("Actual Batch No: " + actualBatch);
-    System.out.println("Expected Batch No: " + BatchNo);
-    Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
-    
-    WebElement btchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
-    String atualBatch = btchElement.getText();
-    System.out.println("Actual Batch No: " + atualBatch);
-    System.out.println("Expected Batch No: " + BatchNo);
-    Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
-    
-    String expectedManufacturingLocation = ""; // Initialize a variable to store the expected manufacturing location
+		// Assert that the actual product contains the expected product, ignoring case
+		Assert.assertTrue(actualProductUpperCase.contains(expectedProductUpperCase)
+				|| actualProductLowerCase.contains(expectedProductLowerCase), "Product mismatch");
 
-    // Determine the expected manufacturing location based on the batch code abbreviation
- // Determine the expected manufacturing location based on the batch code abbreviation or if it's a 6-digit number
-    if (BatchNo.contains("VC")) {
-        expectedManufacturingLocation = "Vantech Chemicals Limited";
-    } else if (BatchNo.contains("PS")) {
-        expectedManufacturingLocation = "Prasad Seeds Pvt Ltd";
-    } else if (BatchNo.contains("IB")) {
-        expectedManufacturingLocation = "Saraswati Agro Chemicals India Pvt Ltd";
-    } else if (BatchNo.contains("BT")) {
-        expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
-    } else if (BatchNo.matches("\\d{6}")) {
-        expectedManufacturingLocation = "FMC India Pvt Ltd Savli"; // If it's a 6-digit number
-    }
+		WebElement packElement = driver.findElement(By.xpath("//tbody/tr[2]/td[2]"));
+		String actualPack = packElement.getText();
+		System.out.println("Actual Pack: " + actualPack);
+		System.out.println("Expected Pack: " + Pack);
 
-    // Assert for manufacturing location
-    System.out.println("Expected Manufacturing Location: " +expectedManufacturingLocation);
-    System.out.println("actual Manufacturing Location: "+ mfgLocation);
+		// Convert both actual and expected pack strings to uppercase and lowercase
+		String actualPackUpperCase = actualPack.toUpperCase();
+		String actualPackLowerCase = actualPack.toLowerCase();
+		String expectedPackUpperCase = Pack.toUpperCase();
+		String expectedPackLowerCase = Pack.toLowerCase();
 
-    // Assertion for manufacturing location
-    Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
-    Assert.assertTrue(mfgLocation.equals(expectedManufacturingLocation), "Manufacturing location mismatch");
-    
+		// Assert that the actual pack contains the expected pack, ignoring case
+		Assert.assertTrue(actualPackUpperCase.contains(expectedPackUpperCase)
+				|| actualPackLowerCase.contains(expectedPackLowerCase), "Pack mismatch");
 
-    WebElement mfgDateElement = driver.findElement(By.xpath("//tbody/tr[4]/td[2]"));
-    String actualMfgDate = mfgDateElement.getText();
-    System.out.println("Actual Manufacturing Date: " + actualMfgDate);
-    System.out.println("Expected Manufacturing Date: " + MfgDate);
-    Assert.assertTrue(actualMfgDate.contains(MfgDate), "Manufacturing Date mismatch");
-    
-    WebElement expDateElement = driver.findElement(By.xpath("//tbody/tr[5]/td[2]"));
-    String actualExpDate = expDateElement.getText();
-    System.out.println("Actual Expiry Date: " + actualExpDate);
-    System.out.println("Expected Expiry Date: " + ExpDate);
-    Assert.assertTrue(actualExpDate.contains(ExpDate), "Expiry Date mismatch"); 
-   
-    driver.quit();   
-}
+		WebElement batchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
+		String actualBatch = batchElement.getText();
+		System.out.println("Actual Batch No: " + actualBatch);
+		System.out.println("Expected Batch No: " + BatchNo);
+		Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
 
-	@AfterMethod
-	public void captureScreenshot(ITestResult result) {
-	    if (result.getStatus() == ITestResult.FAILURE) {
-	        try {
-	            // Capture screenshot
-	            File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-	            // Get the current URL
-	            String currentURL = driver.getCurrentUrl();
-	            // Define a unique file name for the screenshot including the URL
-	            String screenshotName = result.getName() + "_" + currentURL.replaceAll("[^a-zA-Z0-9.-]", "_") + "_" + System.currentTimeMillis() + ".png";
-	            // Save the screenshot
-	            Files.copy(screenshotFile.toPath(), Paths.get("C:\\Users\\Acviss\\git\\repository8\\2AFMC\\src\\test\\java\\screen" + screenshotName));
-	            System.out.println("Screenshot captured: " + screenshotName);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    driver.quit(); 
+		WebElement btchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
+		String atualBatch = btchElement.getText();
+		System.out.println("Actual Batch No: " + atualBatch);
+		System.out.println("Expected Batch No: " + BatchNo);
+		Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
+
+		String expectedManufacturingLocation = ""; // Initialize a variable to store the expected manufacturing location
+
+		// Determine the expected manufacturing location based on the batch code
+		// abbreviation
+		// Determine the expected manufacturing location based on the batch code
+		// abbreviation or if it's a 6-digit number
+		if (BatchNo.contains("VC")) {
+			expectedManufacturingLocation = "Vantech Chemicals Limited";
+		} else if (BatchNo.contains("PS")) {
+			expectedManufacturingLocation = "Prasad Seeds Pvt Ltd";
+		} else if (BatchNo.contains("IB")) {
+			expectedManufacturingLocation = "Saraswati Agro Chemicals India Pvt Ltd";
+		} else if (BatchNo.contains("BT")) {
+			expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
+		} else if (BatchNo.matches("\\d{6}")) {
+			expectedManufacturingLocation = "FMC India Pvt Ltd Savli"; // If it's a 6-digit number
+		}
+
+		// Assert for manufacturing location
+		System.out.println("Expected Manufacturing Location: " + expectedManufacturingLocation);
+		System.out.println("actual Manufacturing Location: " + mfgLocation);
+
+		// Assertion for manufacturing location
+		Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
+		Assert.assertTrue(mfgLocation.equals(expectedManufacturingLocation), "Manufacturing location mismatch");
+
+		WebElement mfgDateElement = driver.findElement(By.xpath("//tbody/tr[4]/td[2]"));
+		String actualMfgDate = mfgDateElement.getText();
+		System.out.println("Actual Manufacturing Date: " + actualMfgDate);
+		System.out.println("Expected Manufacturing Date: " + MfgDate);
+		Assert.assertTrue(actualMfgDate.contains(MfgDate), "Manufacturing Date mismatch");
+
+		WebElement expDateElement = driver.findElement(By.xpath("//tbody/tr[5]/td[2]"));
+		String actualExpDate = expDateElement.getText();
+		System.out.println("Actual Expiry Date: " + actualExpDate);
+		System.out.println("Expected Expiry Date: " + ExpDate);
+		Assert.assertTrue(actualExpDate.contains(ExpDate), "Expiry Date mismatch");
+
+		driver.quit();
+	}
+//	@AfterMethod
+//	public void captureScreenshot(ITestResult result) {
+//		if (result.getStatus() == ITestResult.FAILURE) {
+//			try {
+//				// Capture screenshot
+//				File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//				// Get the current URL
+//				String currentURL = driver.getCurrentUrl();
+//				// Define a unique file name for the screenshot including the URL
+//				String screenshotName = result.getName() + "_" + currentURL.replaceAll("[^a-zA-Z0-9.-]", "_") + "_"
+//						+ System.currentTimeMillis() + ".png";
+//				// Save the screenshot
+//				Files.copy(screenshotFile.toPath(), Paths
+//						.get("C:\\Users\\Acviss\\git\\repository8\\2AFMC\\src\\test\\java\\screen" + screenshotName));
+//				System.out.println("Screenshot captured: " + screenshotName);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	driver.quit();
+//	}
+@AfterMethod
+public void close()
+{
+	driver.quit(); 
 	}
 }
 //	@AfterMethod
@@ -257,8 +257,6 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
 //
 //}
 
-	
-
 //	 @AfterMethod
 //    public void captureScreenshotOnFailure(ITestResult result) {
 //	        if (result.getStatus() == ITestResult.FAILURE) {
@@ -276,5 +274,3 @@ public void launch(String code, String product, String Pack, String BatchNo, Str
 //	        driver.quit();  
 //	    }
 //}
-
-
