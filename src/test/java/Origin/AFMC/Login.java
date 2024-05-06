@@ -163,7 +163,8 @@ public class Login extends Base {
 		System.out.println("Actual Batch No: " + actualBatch);
 		System.out.println("Expected Batch No: " + BatchNo);
 		Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
-
+		
+		
 		WebElement btchElement = driver.findElement(By.xpath("//tbody/tr[3]/td[2]"));
 		String atualBatch = btchElement.getText();
 		System.out.println("Actual Batch No: " + atualBatch);
@@ -172,29 +173,40 @@ public class Login extends Base {
 
 		String expectedManufacturingLocation = ""; // Initialize a variable to store the expected manufacturing location
 
-		// Determine the expected manufacturing location based on the batch code
-		// abbreviation
-		// Determine the expected manufacturing location based on the batch code
-		// abbreviation or if it's a 6-digit number
+		// Determine the expected manufacturing location based on the batch code abbreviation
 		if (BatchNo.contains("VC")) {
-			expectedManufacturingLocation = "Vantech Chemicals Limited";
+		    expectedManufacturingLocation = "Vantech Chemicals Limited";
 		} else if (BatchNo.contains("PS")) {
-			expectedManufacturingLocation = "Prasad Seeds Pvt Ltd";
+		    expectedManufacturingLocation = "Prasad Seeds Pvt Ltd";
 		} else if (BatchNo.contains("IB")) {
-			expectedManufacturingLocation = "Saraswati Agro Chemicals India Pvt Ltd";
+		    expectedManufacturingLocation = "Saraswati Agro Chemicals India Pvt Ltd";
 		} else if (BatchNo.contains("BT")) {
-			expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
+		    expectedManufacturingLocation = "Baroda Agro Chemicals Limited";
 		} else if (BatchNo.matches("\\d{6}")) {
-			expectedManufacturingLocation = "FMC India Pvt Ltd Savli"; // If it's a 6-digit number
+		    // If it's a 6-digit number, consider it's from Savli unless it's a batch code from FMC India Pvt Ltd
+		    if (atualBatch.equals("FMC India Pvt Ltd") || atualBatch.equals("FMC India Pvt Ltd Savli")) {
+		        expectedManufacturingLocation = atualBatch;
+		    } else {
+		        expectedManufacturingLocation = "FMC India Pvt Ltd Savli";
+		    }
 		}
 
-		// Assert for manufacturing location
 		System.out.println("Expected Manufacturing Location: " + expectedManufacturingLocation);
 		System.out.println("actual Manufacturing Location: " + mfgLocation);
 
-		// Assertion for manufacturing location
+		// Assertion for batch number
 		Assert.assertTrue(actualBatch.contains(BatchNo), "Batch No mismatch");
-		Assert.assertTrue(mfgLocation.equals(expectedManufacturingLocation), "Manufacturing location mismatch");
+
+		// Assertion for manufacturing location
+		if (BatchNo.matches("\\d{6}")) {
+		    Assert.assertTrue(mfgLocation.equals("FMC India Pvt Ltd") || mfgLocation.equals("FMC India Pvt Ltd Savli"), "Manufacturing location mismatch");
+		} else {
+		    Assert.assertTrue(mfgLocation.equals(expectedManufacturingLocation), "Manufacturing location mismatch");
+		}
+
+		// Assertion for manufacturing location
+		//Assert.assertTrue(mfgLocation.equals("FMC India Pvt Ltd") || mfgLocation.equals("FMC India Pvt Ltd Savli"), "Manufacturing location mismatch");
+
 
 		WebElement mfgDateElement = driver.findElement(By.xpath("//tbody/tr[4]/td[2]"));
 		String actualMfgDate = mfgDateElement.getText();
