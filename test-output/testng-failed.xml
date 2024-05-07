@@ -5,7 +5,7 @@
     <classes>
       <class name="Origin.AFMC.Login">
         <methods>
-          <include name="launch"/>
+          <include name="launch" invocation-numbers="15 16 17 18 19 20 21"/>
           <include name="close"/>
         </methods>
       </class> <!-- Origin.AFMC.Login -->

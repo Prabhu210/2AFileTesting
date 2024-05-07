@@ -1,0 +1,1 @@
+{"uuid":"cd7f9c4a-a0be-411f-855b-ccddfd0810d5","name":"Origin.AFMC.Login.close","children":["62ca6f55-0c9b-46e0-b1b0-fdc6dcb0c39a"],"description":"","befores":[],"afters":[{"name":"close","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1715065368428,"stop":1715065368545}],"start":1715065368428,"stop":1715065368545}
